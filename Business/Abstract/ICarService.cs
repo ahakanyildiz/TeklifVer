@@ -9,7 +9,7 @@ namespace TeklifVer.Business.Abstract
         public IResult Create(CarCreateDto carCreateDto);
         public IResult Update(CarUpdateDto car);
         public IResult Delete(int id);
-        public IResult<IQueryable<CarListDto>> GetAll();
+        public IResult<List<CarListDto>> GetAll();
         public IResult<CarListDto> GetById(int id);
         public IResult<IQueryable<CarModelListDto>> GetModelsByBrandId(int id);
     }

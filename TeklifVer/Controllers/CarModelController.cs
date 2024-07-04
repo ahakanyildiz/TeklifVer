@@ -21,9 +21,13 @@ namespace TeklifVer.UI.Controllers
 
         public IActionResult Index()
         {
-            var result = _modelService.GetAll();
-            TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
-            return result.IsSuccess ? View(result.Data) : View();
+            var model = new CarModelListModel()
+            {
+                CarModels = _modelService.GetAll().Data,
+                Brands = _brandService.GetAll().Data,
+            };
+
+            return View(model);
         }
 
         [HttpGet]
@@ -33,7 +37,7 @@ namespace TeklifVer.UI.Controllers
             return result.IsSuccess ? Json(result.Data) : Json(null);
         }
 
-
+        [Route("CarModel/GetListByBrandId/{id?}")]
         [HttpGet]
         public IActionResult GetListByBrandId(int id)
         {
@@ -41,14 +45,17 @@ namespace TeklifVer.UI.Controllers
             return result.IsSuccess ? Json(result.Data) : Json(null);
         }
 
-
-        [Route("Model/Olustur")]
         [HttpPost]
-        public IActionResult Create([FromForm] CarModelCreateDto dto)
+        public IActionResult Create(CarModelListModel model)
         {
+            var dto = new CarModelCreateDto()
+            {
+                BrandId = model.BrandId,
+                Definition = model.Definition
+            };
             var result = _modelService.Create(dto);
             TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
-            return result.IsSuccess ? RedirectToAction("Index", "CarModel") : View(dto);
+            return result.IsSuccess ? RedirectToAction("Index", "CarModel") : RedirectToAction("Index", "CarModel");
         }
 
 
@@ -59,41 +66,40 @@ namespace TeklifVer.UI.Controllers
             return result.IsSuccess ? RedirectToAction("Index") : RedirectToAction("Index");
         }
 
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            try
-            {
-                CarModelUpdateModel model = new CarModelUpdateModel();
-                model.BrandsList = _brandService.GetAll().Data;
-                var modelResult = _modelService.GetById(id);
-
-                model.Definition = modelResult.Data.Definition;
-                model.ImageName = modelResult.Data.ImageName;
-                model.BrandName = modelResult.Data.Brand.Definition;
-                return View(model);
-            }
-
-
-            catch (Exception ex)
-            {
-                return RedirectToAction("Index");
-            }
-
+            CarModelUpdateModel model = new CarModelUpdateModel();
+            model.BrandsList = _brandService.GetAll().Data;
+            var carModelResult = _modelService.GetById(id);
+            model.Definition = carModelResult.Data.Definition;
+            model.ImageName = carModelResult.Data.ImageName;
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult EditAsync(CarModelCreateModel model)
+        public IActionResult Edit(CarModelUpdateModel model)
         {
-            CarModelUpdateDto carModel = new()
+            CarModelUpdateDto carModelDto = new()
             {
                 Id = model.Id,
                 Definition = model.Definition,
-                BrandId = _brandService.GetByName(model.BrandName).Data.Id,
+                BrandId = model.BrandId
             };
 
-            var result = _modelService.Update(carModel);
-            TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
-            return result.IsSuccess ? RedirectToAction("Index") : View(model);
+            var result = _modelService.Update(carModelDto);
+
+            if (result != null && result.IsSuccess)
+            {
+                TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
+                model.BrandsList = _brandService.GetAll().Data;
+                return View(model);
+            }
         }
 
     }

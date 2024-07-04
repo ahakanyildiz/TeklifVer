@@ -51,19 +51,20 @@ namespace DataAccess.Concrete
             _context.SaveChanges();
         }
 
+
+
+
         public T GetById(int id, string includeTables)
         {
             string[] includeArray = includeTables.Split('.');
-
             IQueryable<T> query = _context.Set<T>().AsQueryable();
 
             foreach (var table in includeArray)
             {
-                query = query.Include(table);
+                query = query.Include(table).Include(x => EF.Property<int>(x, "Brand"));
             }
 
             return query.FirstOrDefault(entity => EF.Property<int>(entity, "Id") == id);
-
         }
 
         public IQueryable<T> GetAll(string includeTables)
@@ -72,7 +73,7 @@ namespace DataAccess.Concrete
             IQueryable<T> query = _context.Set<T>().AsQueryable();
             foreach (var table in includeArray)
             {
-                query.Include(table);
+                query = query.Include(table.Trim());
             }
             return query;
         }

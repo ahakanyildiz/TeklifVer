@@ -8,8 +8,9 @@ namespace Entities
         public string Definition { get; set; }
         public int Year { get; set; }
         public int ModelId { get; set; }
+        public CarModel? CarModel { get; set; }
         public int Price { get; set; }
-        public CarModel? Model { get; set; }
+
 
     }
 }

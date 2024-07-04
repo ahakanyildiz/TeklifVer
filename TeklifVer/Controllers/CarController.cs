@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TeklifVer.Business.Abstract;
 using TeklifVer.Dto.Car;
-using TeklifVer.Dto.CarBrand;
-using TeklifVer.Dto.CarModel;
 using TeklifVer.UI.Models.Car;
 
 namespace TeklifVer.UI.Controllers
@@ -56,12 +54,12 @@ namespace TeklifVer.UI.Controllers
             var viewModel = new CarUpdateViewModel
             {
                 Car = car.Data,
-                Brands = (List<CarBrandListDto>)brands.Data,
-                Models = (List<CarModelListDto>)models.Data
+                Brands = brands.Data,
+                Models = models.Data
             };
 
             viewModel.Car.Model = _modelService.GetById(viewModel.Car.ModelId).Data;
-            viewModel.Car.Brand = _brandService.GetById(viewModel.Car.Model.BrandId).Data;
+            viewModel.Car.Model.Brand = _brandService.GetById(viewModel.Car.Model.BrandId).Data;
             return View(viewModel);
         }
 

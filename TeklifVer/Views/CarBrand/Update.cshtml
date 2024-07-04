@@ -13,7 +13,7 @@
     border: #04105a;
     border-style: outset;
     border-radius: initial;" src="~/brand_images/@Model.ImgName" />
-<form method="post" asp-action="UpdateBrand" asp-controller="CarBrand" enctype="multipart/form-data">
+<form method="post" asp-action="Update" asp-controller="CarBrand" enctype="multipart/form-data">
     <input type="hidden" asp-for="@Model.Id" />
     <input type="hidden" asp-for="@Model.ImgName" />
     <div class="form-group">

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DataAccess.Abstract;
 using Entities;
-using Microsoft.EntityFrameworkCore;
 using TeklifVer.Business.Abstract;
 using TeklifVer.Common.ResultPattern;
 using TeklifVer.Dto.Car;
@@ -51,18 +50,16 @@ namespace TeklifVer.Business.Concrete
             }
         }
 
-        public IResult<IQueryable<CarListDto>> GetAll()
+        public IResult<List<CarListDto>> GetAll()
         {
             try
             {
-                var data = _mapper.Map<IQueryable<CarListDto>>(_carRepository.GetAll("CarModel.CarBrand")
-                    .Include(cm => cm.Model))
-                    .Include(cb => cb.Brand);
-                return new Result<IQueryable<CarListDto>>(true, data);
+                var data = _mapper.Map<List<CarListDto>>(_carRepository.GetAll("CarModel").ToList());
+                return new Result<List<CarListDto>>(true, data);
             }
             catch (Exception ex)
             {
-                return new Result<IQueryable<CarListDto>>(false, ex.Message);
+                return new Result<List<CarListDto>>(false, ex.Message);
             }
         }
 

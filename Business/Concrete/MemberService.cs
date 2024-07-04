@@ -24,7 +24,9 @@ namespace Business.Concrete
             {
                 var result = new Result<MemberListDto>();
                 var member = _repository.GetByFilter(x => x.Email == email && x.Password == password);
-                return new Result<MemberListDto>(true, _mapper.Map<MemberListDto>(member));
+                return member == null ?
+                    new Result<MemberListDto>(false, "E-posta veya şifre yanlış")
+                   : new Result<MemberListDto>(true, _mapper.Map<MemberListDto>(member));
             }
             catch (Exception ex)
             {

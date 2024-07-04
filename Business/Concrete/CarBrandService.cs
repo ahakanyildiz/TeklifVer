@@ -65,13 +65,28 @@ namespace Business.Concrete
             try
             {
                 var carBrand = _repository.GetById(id);
-                Result<CarBrandUpdateDto> result;
+                Result<CarBrandListDto> result;
                 var data = _mapper.Map<CarBrandListDto>(carBrand);
                 return new Result<CarBrandListDto>(true, data);
             }
             catch (Exception ex)
             {
                 return new Result<CarBrandListDto>(false, ex.Message);
+            }
+        }
+
+        public IResult<CarBrandUpdateDto> GetByIdForUpdate(int id)
+        {
+            try
+            {
+                var carBrand = _repository.GetById(id);
+                Result<CarBrandUpdateDto> result;
+                var data = _mapper.Map<CarBrandUpdateDto>(carBrand);
+                return new Result<CarBrandUpdateDto>(true, data);
+            }
+            catch (Exception ex)
+            {
+                return new Result<CarBrandUpdateDto>(false, ex.Message);
             }
         }
 

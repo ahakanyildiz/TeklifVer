@@ -9,19 +9,26 @@
 <script src="~/js/CarModel/CarModel.js"></script>
 <form method="post" asp-action="Edit" asp-controller="CarModel">
 <div class="form-group">
-    <label asp-for="@Model.BrandName" class="form-label">Marka Seçiniz:</label>
-    <select id="brandCreateSelect" asp-for="@Model.BrandName" class="form-select">
+    <label class="form-label">Marka Seçiniz:</label>
+    <select id="brandCreateSelect" asp-for="@Model.BrandId" class="form-select">
         <option selected>Marka Seçiniz...</option>
 
         @foreach (var item in Model.BrandsList)
         {
-            <option value="@item.Definition">@item.Definition</option>
+                @if (item.Id == Model.BrandId)
+                {
+                    <option value="@item.Id" disable selected>@item.Definition</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Definition</option>
+                }
         }
     </select>
 </div>
 
 <div class="form-group mt-3">
-    <label asp-for="@Model.Image" class="form-label">Model:</label>
+    <label class="form-label">Model isim:</label>
     <input class="form-control" type="text" asp-for="@Model.Definition" />
 </div>
 

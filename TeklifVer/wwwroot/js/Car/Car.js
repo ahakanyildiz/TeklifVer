@@ -12,21 +12,22 @@
         allowClear: true
     });
 
-
-    $('.trigger').click(function () {
-        $('.modal-wrapper').toggleClass('open');
-        $('.page-wrapper').toggleClass('blur');
-        $('#carBrandSelect').empty();
-        getBrands();
-        return false;
-    });
-
-
     $('#carModelSelect').select2({
         width: '100%',
         placeholder: "Model seçiniz",
         allowClear: true
     });
+
+    $('.trigger').click(function () {
+        $('.modal-wrapper').toggleClass('open');
+        $('.page-wrapper').toggleClass('blur');
+        $('#carBrandSelect').empty();
+        $('#carModelSelect').empty();
+        getBrands();
+        return false;
+    });
+
+
 
     
    
@@ -41,11 +42,12 @@
                 // Başarılı olursa, verileri select etiketine ekleyin
                 var $select = $('#carBrandSelect');
                 console.log("Markaları select'e ekliyorum.");
+                console.log(response);
                 var option ='<option disabled selected>Marka seçiniz</option>';
 
                 $select.append(option);
                 // response.data kısmına erişiyoruz
-                $.each(response.data, function (index, item) {
+                $.each(response, function (index, item) {
                     var option = $('<option></option>')
                         .attr('value', item.id) // veya item.value
                         .text(item.definition); // veya item.text
@@ -58,7 +60,7 @@
         });
     }
 
-
+    getBrands();
 
 
     function getModels(id) {

@@ -46,7 +46,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("Entities.CarBrand", b =>
@@ -65,7 +65,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarBrands");
+                    b.ToTable("CarBrands", (string)null);
                 });
 
             modelBuilder.Entity("Entities.CarModel", b =>
@@ -86,7 +86,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("CarModels");
+                    b.ToTable("CarModels", (string)null);
                 });
 
             modelBuilder.Entity("Entities.Member", b =>
@@ -119,7 +119,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Members");
+                    b.ToTable("Members", (string)null);
 
                     b.HasData(
                         new
@@ -147,7 +147,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new

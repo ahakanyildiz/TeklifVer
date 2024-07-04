@@ -48,7 +48,7 @@ namespace TeklifVer.Controllers
 
 
         [HttpGet]
-        public JsonResult GetList()
+        public IActionResult GetList()
         {
             var result = _carBrandService.GetAll();
             return Json(result.Data);
@@ -67,17 +67,18 @@ namespace TeklifVer.Controllers
         [Route("Marka/Guncelle/{id}")]
         public IActionResult Update(int id)
         {
-            var result = _carBrandService.GetById(id);
+            var result = _carBrandService.GetByIdForUpdate(id);
             TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
             return result.IsSuccess ? View(result.Data) : RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult UpdateBrand(CarBrandUpdateDto brandDto)
+        [Route("Marka/Guncelle/{id}")]
+        public IActionResult Update(CarBrandUpdateDto brandDto)
         {
             var result = _carBrandService.Update(brandDto);
             TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
-            return result.IsSuccess ? RedirectToAction("Index") : View(brandDto);
+            return result.IsSuccess ? RedirectToAction("Index") : View(brandDto); ;
         }
     }
 }

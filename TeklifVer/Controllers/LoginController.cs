@@ -44,7 +44,7 @@ namespace TeklifVer.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return View(new MemberLoginDto());
         }
 
         public async Task<IActionResult> SignOut()

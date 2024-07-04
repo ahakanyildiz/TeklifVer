@@ -21,16 +21,16 @@ namespace Business.Concrete
             _brandRepository = brandRepository;
         }
 
-        public IResult<IQueryable<CarModelListDto>> GetAllByBrandId(int id)
+        public IResult<List<CarModelListDto>> GetAllByBrandId(int id)
         {
             try
             {
                 var data = _repository.GetByFilterList(x => x.BrandId == id);
-                return new Result<IQueryable<CarModelListDto>>(true, _mapper.Map<List<CarModelListDto>>(data) as IQueryable<CarModelListDto>);
+                return new Result<List<CarModelListDto>>(true, _mapper.Map<List<CarModelListDto>>(data));
             }
             catch (Exception ex)
             {
-                return new Result<IQueryable<CarModelListDto>>(false, ex.Message);
+                return new Result<List<CarModelListDto>>(false, ex.Message);
             }
 
         }
@@ -67,7 +67,7 @@ namespace Business.Concrete
         {
             try
             {
-                var carModels = _repository.GetAll("CarBrand").Include(x => x.Brand);
+                var carModels = _repository.GetAll("Brand");
                 Result<List<CarModelListDto>> result = new(true, _mapper.Map<List<CarModelListDto>>(carModels));
                 return result;
             }
@@ -81,7 +81,8 @@ namespace Business.Concrete
         {
             try
             {
-                CarModel carModel = _repository.GetById(id, "CarBrand");
+                var carModels = _repository.GetAll("CarBrand").Include(x => x.Brand);
+                var carModel = carModels.FirstOrDefault(x => x.Id == id);
                 return new Result<CarModelListDto>(true, _mapper.Map<CarModelListDto>(carModel));
             }
             catch (Exception ex)

@@ -27,7 +27,7 @@ namespace DataAccess.Contexts
         {
             modelBuilder.Entity<CarModel>()
                 .HasMany(b => b.Cars)
-                .WithOne(p => p.Model)
+                .WithOne(p => p.CarModel)
                 .HasForeignKey(p => p.ModelId);
 
             modelBuilder.Entity<CarBrand>()
