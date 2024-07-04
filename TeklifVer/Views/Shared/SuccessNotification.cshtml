@@ -1,0 +1,14 @@
+﻿@model (bool,string)
+
+
+
+<script>
+    @if (!Model.Item1)
+    {
+        @:alertify.success('Kayıt başarıyla oluşturuldu.');
+    }
+    else
+    {
+        @:alertify.error('İşlem başarısız.');
+    }
+</script>

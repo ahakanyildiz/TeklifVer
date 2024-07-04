@@ -1,0 +1,58 @@
+﻿@using Entities;
+@using TeklifVer.Dto.CarModel;
+@model IEnumerable<CarModelListDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/js/CarModel/CarModel.js"></script>
+
+
+<div class="modal-wrapper">
+    <div class="modal">
+        <div class="head">
+            <p>MODEL OLUŞTUR</p>
+            <a class="btn-close trigger" href="javascript:;"></a>
+        </div>
+        <div class="content">
+            <form id="carModelForm">
+                <div class="form-group">
+                    <label>Model Ad:</label>
+                    <input id="definition" type="text" />
+                </div>
+                <div class="form-group">
+                    <label>Marka:</label>
+                    <select id="brandSelect" class="js-example-basic-single" name="state">
+                    </select>
+                </div>
+                <button class="button success" id="btnCreate" type="submit">Oluştur</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table id="carModelTable" class="display">
+    <thead>
+        <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Remove</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Brand.Definition</td>
+                <td>@item.Definition</td>
+                <td><a class="button danger" asp-action="Remove" asp-controller="CarModel" asp-route-id="@item.Id">Remove</a></td>
+                <td><a class="button warning" asp-action="Edit" asp-controller="CarModel" asp-route-id="@item.Id">Update</a></td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+<button class="button primary trigger">Create Model</button>

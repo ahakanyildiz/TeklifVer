@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/css/popupForm.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/Turkish.json"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <script src="~/js/site.js"></script>
+    <!-- JavaScript -->
+
+
+</head>
+<body>
+    @if (TempData["isSuccess"] != null)
+    {
+        @if (TempData["isSuccess"] == "İşlem Başarılı")
+        {
+            <partial name="SuccessNotification" model="@(true,TempData["isSuccess"].ToString())"></partial>
+        }
+        else
+        {
+            <partial name="SuccessNotification" model="@(false,TempData["isSuccess"].ToString())"></partial>
+        }
+    }
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <header>
+            <div class="logo">TEKLİF</div>
+            <nav>
+                <ul>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a class="menuItem" asp-action="Index" asp-controller="CarBrand">Marka</a></li>
+                        <li><a class="menuItem" asp-action="Index" asp-controller="CarModel">Model</a></li>
+                        <li><a class="menuItem" asp-action="Index" asp-controller="Car">Araba</a></li>
+                        <li><a class="signOut" asp-action="SignOut" asp-controller="Login">Çıkış Yap</a></li>
+                    }
+                </ul>
+            </nav>
+        </header>
+    }
+
+    <div class="container" style="width:100%;">
+        @RenderBody();
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TeklifVer. Tüm hakları saklıdır.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@using TeklifVer.Dto.CarBrand;
+@using TeklifVer.UI.Models.CarBrand;
+@model CarBrandUpdateDto;
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<img style="width: 300px;
+    height: 300px;
+    margin-bottom: 50px;
+    border: #04105a;
+    border-style: outset;
+    border-radius: initial;" src="~/brand_images/@Model.ImgName" />
+<form method="post" asp-action="UpdateBrand" asp-controller="CarBrand" enctype="multipart/form-data">
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" asp-for="@Model.ImgName" />
+    <div class="form-group">
+        <label>Marka İsmi:</label>
+        <input asp-for="@Model.Definition" class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <input type="file" asp-for="@Model.Image" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Güncelle</button>
+</form>
+

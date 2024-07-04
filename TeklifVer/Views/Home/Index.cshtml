@@ -1,0 +1,44 @@
+﻿@using Entities;
+@model IEnumerable<Member>
+
+@{
+    ViewData["Title"] = "Anasayfa";
+}
+
+<div id="mainCards">
+<section class="cards">
+    <div class="card">
+        <h2>Toplam Marka Sayısı</h2>
+        <p>@ViewBag.MarkaCount</p>
+    </div>
+    <div class="card">
+        <h2>Toplam Model Sayısı</h2>
+        <p>@ViewBag.ModelCount</p>
+    </div>
+</section>
+
+<section class="table">
+    <h2>User List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+         @foreach (var member in Model)
+            {
+                    <tr>
+                    <td>@member.Id</td>
+                    <td>@member.Name</td>
+                    <td>@member.Surname</td>
+                    <td>@member.Email</td>
+                    </tr>
+            }
+        </tbody>
+    </table>
+</section>
+</div>

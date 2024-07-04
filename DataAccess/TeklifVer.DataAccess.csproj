@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="datatables.net" Version="2.0.8" />
+    <PackageReference Include="datatables.net-bs4" Version="2.0.8" />
+    <PackageReference Include="jQuery" Version="3.7.1" />
+    <PackageReference Include="Microsoft.entityframeworkcore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.entityframeworkcore.design" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.entityframeworkcore.sqlserver" Version="7.0.0" />
+    <PackageReference Include="Microsoft.entityframeworkcore.tools" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\TeklifVer.Entities.csproj" />
+    <ProjectReference Include="..\TeklifVer.Common\TeklifVer.Common.csproj" />
+  </ItemGroup>
+
+</Project>

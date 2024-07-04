@@ -1,0 +1,30 @@
+﻿@using TeklifVer.Dto.Member;
+@model MemberLoginDto
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/js/Login/SignIn.js"></script>
+
+
+<div id ="loginDiv">
+<div style="width:100%;display:flex;justify-content:center;align-items:center;margin-bottom: 30px;">
+    <img src="~/images/logo.jpeg" />
+</div>
+
+<div  class="login-container">
+    <form class="login-form" method="post" asp-action="SignIn" asp-controller="Login">
+    <div class="form-group">
+
+        <label>E-mail:</label>
+        <input type="text" class="form-control" asp-for="@Model.Email" placeholder="noname@gmail.com">
+    </div>
+    <div class="form-group">
+        <label for="input2">Password:</label>
+        <input type="password" class="form-control" asp-for="@Model.Password">
+    </div>
+        <button class="transparent-button" type="submit" style="background-color:#04105a;width: 100%;">Login</button>
+</form>
+    </div>
+</div>
