@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
-    $('#loginDiv').hide();
-    $('#loginDiv').fadeIn(3000); 
-});
+﻿//$(document).ready(function () {
+//    $('#loginDiv').hide();
+//    $('#loginDiv').fadeIn(3000); 
+//});

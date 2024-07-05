@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TeklifVer.DataAccess.Migrations
 {
     [DbContext(typeof(CarContext))]
-    [Migration("20240625131155_addedPrice")]
-    partial class addedPrice
+    [Migration("20240705163717_InitializeCreate")]
+    partial class InitializeCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,10 @@ namespace TeklifVer.DataAccess.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Definition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
@@ -102,7 +106,7 @@ namespace TeklifVer.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -110,6 +114,9 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
@@ -119,6 +126,19 @@ namespace TeklifVer.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Members");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "teknomanihah@gmail.com",
+                            Name = "Hakan",
+                            PasswordHash = "h1oFmK/Df2M12QEpSyUfW17m7w08lutVc0SLOXlV0ig=",
+                            PhoneNumber = "5060407176",
+                            RoleId = 2,
+                            Salt = "JtFEQoLF5HcvaaE+DYXhFw==",
+                            Surname = "Yıldız"
+                        });
                 });
 
             modelBuilder.Entity("TeklifVer.Entities.Role", b =>
@@ -135,17 +155,29 @@ namespace TeklifVer.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Definition = "Member"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Definition = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Car", b =>
                 {
-                    b.HasOne("Entities.CarModel", "Model")
+                    b.HasOne("Entities.CarModel", "CarModel")
                         .WithMany("Cars")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Model");
+                    b.Navigation("CarModel");
                 });
 
             modelBuilder.Entity("Entities.CarModel", b =>

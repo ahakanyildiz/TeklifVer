@@ -33,7 +33,7 @@
 <body>
     @if (TempData["isSuccess"] != null)
     {
-        @if (TempData["isSuccess"] == "İşlem Başarılı")
+        @if (TempData["isSuccess"].ToString() == "İşlem Başarılı")
         {
             <partial name="SuccessNotification" model="@(true,TempData["isSuccess"].ToString())"></partial>
         }
@@ -63,7 +63,7 @@
     }
 
     <div class="container" style="width:100%;">
-        @RenderBody();
+        @RenderBody()
     </div>
 
     <footer>

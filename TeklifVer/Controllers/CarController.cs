@@ -23,7 +23,6 @@ namespace TeklifVer.UI.Controllers
         public IActionResult Index()
         {
             var result = _carService.GetAll();
-            TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
             return result.IsSuccess ? View(result.Data) : View();
         }
 

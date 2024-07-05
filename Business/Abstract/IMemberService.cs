@@ -10,7 +10,7 @@ namespace Business.Abstract
         public IResult Update(Member member);
         public IResult Delete(int id);
         public IResult<IEnumerable<Member>> GetAll();
-        public IResult GetById(int id);
-        public IResult<MemberListDto> AuthenticateUser(string email, string password);
+        public IResult<Member> GetById(int id);
+        public IResult<MemberListDto> AuthenticateUser(MemberLoginDto dto);
     }
 }

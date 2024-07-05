@@ -7,7 +7,7 @@
 namespace TeklifVer.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitalizeMigration : Migration
+    public partial class InitializeCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,7 +68,8 @@ namespace TeklifVer.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoleId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -89,8 +90,10 @@ namespace TeklifVer.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Definition = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    ModelId = table.Column<int>(type: "int", nullable: false)
+                    ModelId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,8 +117,8 @@ namespace TeklifVer.DataAccess.Migrations
 
             migrationBuilder.InsertData(
                 table: "Members",
-                columns: new[] { "Id", "Email", "Name", "Password", "PhoneNumber", "RoleId", "Surname" },
-                values: new object[] { 1, "teknomanihah@gmail.com", "Hakan", "123", "5060407176", 2, "Yıldız" });
+                columns: new[] { "Id", "Email", "Name", "PasswordHash", "PhoneNumber", "RoleId", "Salt", "Surname" },
+                values: new object[] { 1, "teknomanihah@gmail.com", "Hakan", "h1oFmK/Df2M12QEpSyUfW17m7w08lutVc0SLOXlV0ig=", "5060407176", 2, "JtFEQoLF5HcvaaE+DYXhFw==", "Yıldız" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CarModels_BrandId",

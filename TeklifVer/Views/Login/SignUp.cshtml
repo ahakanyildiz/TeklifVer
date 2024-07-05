@@ -5,36 +5,37 @@
     ViewData["Title"] = "SignUp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h1 style="display:flex;justify-content:center;align-items:center;">KAYIT OL</h1>
 <div style="width:100%;">
-<form method="post" asp-action="SignUp" asp-controller="Login">
+    <form method="post" asp-action="SignUp" asp-controller="Login">
 
-    <div class="row">
-        <div class="form-group col-6">
-            <label>İsim:</label>
-            <input asp-for="@Model.Name" class="form-control" />
+        <div class="row">
+            <div class="form-group col-6">
+                <label>İsim:</label>
+                <input asp-for="@Model.Name" class="form-control" />
+            </div>
+            <div class="form-group col-6">
+                <label>Soyisim:</label>
+                <input asp-for="@Model.Surname" class="form-control" />
+            </div>
         </div>
-        <div class="form-group col-6">
-            <label>Soyisim:</label>
-            <input asp-for="@Model.Surname" class="form-control" />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="form-group col-6">
-            <label>Telefon No:</label>
-            <input type="tel" asp-for="@Model.PhoneNumber" class="form-control" />
+        <div class="row">
+            <div class="form-group col-6">
+                <label>Telefon No:</label>
+                <input type="tel" asp-for="@Model.PhoneNumber" class="form-control" />
+            </div>
+            <div class="form-group col-6">
+                <label>Email:</label>
+                <input type="email" asp-for="@Model.Email" class="form-control" placeholder="example@teklif.com" />
+            </div>
         </div>
-        <div class="form-group col-6">
-            <label>Email:</label>
-            <input type="email" asp-for="@Model.Email" class="form-control" placeholder="example@teklif.com" />
+        <div class="form-group">
+            <label>Şifre:</label>
+            <input type="password" asp-for="@Model.Password" class="form-control" />
         </div>
-    </div>
-    <div class="form-group">
-        <label>Şifre:</label>
-        <input type="password" asp-for="@Model.Password" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Oluştur</button>
+        <button type="submit" class="btn btn-primary mt-3">Oluştur</button>
 
-</form>
+    </form>
 </div>

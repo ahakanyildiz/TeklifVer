@@ -28,23 +28,31 @@ namespace TeklifVer.Controllers
         [HttpPost]
         public async Task<IActionResult> SignIn(MemberLoginDto memberLoginDto)
         {
-            var result = _memberService.AuthenticateUser(memberLoginDto?.Email, memberLoginDto?.Password);
-            if (result.IsSuccess)
+            if (memberLoginDto == null)
             {
-                List<Claim> claims = new List<Claim>()
-                {
-                    new Claim(ClaimTypes.Email, memberLoginDto.Email)
-                };
-
-                claims.Add(new Claim(ClaimTypes.Role, result.Data.RoleId == (int)RoleType.Admin ? "admin" : "member"));
-                var claimsIdentity = new ClaimsIdentity(claims,
-                CookieAuthenticationDefaults.AuthenticationScheme);
-
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), new AuthenticationProperties());
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("Error", "Eposta veya şifre girmediniz");
+                return View(new MemberLoginDto());
             }
 
-            return View(new MemberLoginDto());
+            var result = _memberService.AuthenticateUser(memberLoginDto);
+            if (!result.IsSuccess)
+            {
+                ModelState.AddModelError("Error", result.ErrorMessage);
+                return View(memberLoginDto);
+            }
+
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Email, memberLoginDto.Email),
+                    new Claim(ClaimTypes.Role, result.Data.RoleId == (int)RoleType.Admin ? "admin" : "member")
+                };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var authProperties = new AuthenticationProperties();
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> SignOut()
@@ -54,7 +62,7 @@ namespace TeklifVer.Controllers
             {
                 await HttpContext.SignOutAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme);
-                TempData["isSuccess"] = "Başarılı bir şekilde çıkış yapıldı";
+                TempData["isSuccess"] = "İşlem Başarılı";
             }
 
             return RedirectToAction("Index", "Home");

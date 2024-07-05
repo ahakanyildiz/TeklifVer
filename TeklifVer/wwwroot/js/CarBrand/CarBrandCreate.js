@@ -26,18 +26,18 @@
         return false;
     });
 
-    function successMessage() {
-        $.ajax({
-            url: '/Home/SuccessNotification',
-            type: 'GET',
-            success: function (data) {
-                $('#partialContainer').html(data);
-            },
-            error: function () {
-                alert('Partial view yüklenirken bir hata oluştu.');
-            }
-        });
-    };
+    //function successMessage() {
+    //    $.ajax({
+    //        url: '/Home/SuccessNotification',
+    //        type: 'GET',
+    //        success: function (data) {
+    //            $('#partialContainer').html(data);
+    //        },
+    //        error: function () {
+    //            alert('Partial view yüklenirken bir hata oluştu.');
+    //        }
+    //    });
+    //};
 
 
     //function getBrands() {
@@ -68,33 +68,33 @@
 
 
     // Form verilerinin gönderilmesini sağlayan fonksiyon
-    $("#btnCreate").click(function () {
-        event.preventDefault();
+ //   $("#btnCreate").click(function () {
+ //       event.preventDefault();
 
-        var formData = new FormData();
-        formData.append("Definition", $("#Definition").val());
-        formData.append("ImgName", "bos");
-        formData.append("Image", $("#Image")[0].files[0]);
+ //       var formData = new FormData();
+ //       formData.append("Definition", $("#Definition").val());
+ //       formData.append("ImgName", "bos");
+ //       formData.append("Image", $("#Image")[0].files[0]);
 
 
-        $.ajax({
-            url: '/marka/olustur',
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (response) {
-           /*     successMessage();*/
-                $("#brandForm")[0].reset();
-                $('.modal-wrapper').toggleClass('open');
-                window.location.reload();
- /*               getBrands();*/
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    });
+ //       $.ajax({
+ //           url: '/marka/olustur',
+ //           type: 'POST',
+ //           contentType: false,
+ //           processData: false,
+ //           data: formData,
+ //           success: function (response) {
+ //          /*     successMessage();*/
+ //               $("#brandForm")[0].reset();
+ //               $('.modal-wrapper').toggleClass('open');
+ //               window.location.reload();
+ ///*               getBrands();*/
+ //           },
+ //           error: function (error) {
+ //               console.log(error);
+ //           }
+ //       });
+ //   });
 
 
 

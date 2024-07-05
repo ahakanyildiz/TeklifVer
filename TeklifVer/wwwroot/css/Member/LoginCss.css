@@ -1,4 +1,4 @@
-* {
+ï»¿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -80,27 +80,16 @@ nav ul {
     flex: 1;
 }
 
-.table {
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+table th, table td {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+table th {
+    background-color: #f0f0f0;
 }
-
-    table th, table td {
-        padding: 0.5rem;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    table th {
-        background-color: #f0f0f0;
-    }
 
 footer {
     text-align: center;
@@ -200,19 +189,19 @@ button {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-    /* Buton üzerine gelindiğinde */
+    /* Buton Ã¼zerine gelindiÄŸinde */
     .button:hover {
         background-color: #0056b3;
     }
 
-    /* Buton tıklandığında */
+    /* Buton tÄ±klandÄ±ÄŸÄ±nda */
     .button:active {
         background-color: #004080;
         box-shadow: 0 5px #666;
         transform: translateY(4px);
     }
 
-    /* Buton engellendiğinde */
+    /* Buton engellendiÄŸinde */
     .button:disabled {
         background-color: #cccccc;
         color: #666666;
@@ -255,7 +244,7 @@ button {
 
 
 .transparent-button {
-    background-color: #4CAF50; /* Yeşil */
+    background-color: #4CAF50; /* YeÅŸil */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -265,25 +254,9 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-    transition: opacity 0.3s; /* Geçiş süresi */
+    transition: opacity 0.3s; /* GeÃ§iÅŸ sÃ¼resi */
 }
 
     .transparent-button:hover {
-        opacity: 0.7; /* Saydamlık değeri */
-    }
-
-.ErrorsBox {
-    min-height: 70px;
-    width: 400px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 20px;
-    background: rgb(4 16 90);
-    /*    border-radius: 21px;*/
-}
-
-    .ErrorsBox > ul {
-        color: white;
-        margin-left: 30px;
+        opacity: 0.7; /* SaydamlÄ±k deÄŸeri */
     }

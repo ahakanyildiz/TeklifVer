@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Entities;
+using HtmlAgilityPack;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeklifVer.Business.Abstract;
 using TeklifVer.Common.Helpers;
@@ -18,25 +20,43 @@ namespace TeklifVer.Controllers
         }
 
 
+        //HtmlAgilityPack ile markalar ve logoları çekildi.
+        public void getCarBrands()
+        {
+            var url = "https://www.sahibinden.com/kategori/otomobil";
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument doc = web.Load(url);
+
+            var brandNodes = doc.DocumentNode.SelectNodes("//div[@class='jspPane']/li/h2");
+            var brandImageNodes = doc.DocumentNode.SelectNodes("//div[@class='car-brand-frame']/a/img");
+            if (brandNodes != null && brandImageNodes != null)
+            {
+                for (int i = 0; i < brandNodes.Count; i++)
+                {
+                    _carBrandService.Create(new CarBrandCreateDto()
+                    {
+                        Definition = brandNodes[i].InnerText,
+                        ImgName = "https://www.tasit.com" + brandImageNodes[i].Attributes["src"].Value
+                    });
+                }
+            }
+        }
+
         [Route("Marka/Index")]
         public IActionResult Index()
         {
             var result = _carBrandService.GetAll();
-            TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
             return result.IsSuccess ? View(result.Data) : View();
         }
 
 
-        [Route("Marka/Olustur")]
         [HttpGet]
         public IActionResult CreateBrand()
         {
             return View();
         }
-
-        [Route("Marka/Olustur")]
         [HttpPost]
-        public IActionResult CreateBrand([FromForm] CarBrandCreateDto brandDto)
+        public IActionResult CreateBrand(CarBrandCreateDto brandDto)
         {
             brandDto.ImgName = brandDto.Image.FileName;
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/brand_images", brandDto.Image.FileName);

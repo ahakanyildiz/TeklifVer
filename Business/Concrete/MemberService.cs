@@ -3,6 +3,7 @@ using Business.Abstract;
 using DataAccess.Abstract;
 using Entities;
 using TeklifVer.Common.Enums;
+using TeklifVer.Common.Helpers;
 using TeklifVer.Common.ResultPattern;
 using TeklifVer.Dto.Member;
 
@@ -18,21 +19,35 @@ namespace Business.Concrete
             _mapper = mapper;
         }
 
-        public IResult<MemberListDto> AuthenticateUser(string email, string password)
+        public IResult<MemberListDto> AuthenticateUser(MemberLoginDto dto)
         {
             try
             {
-                var result = new Result<MemberListDto>();
-                var member = _repository.GetByFilter(x => x.Email == email && x.Password == password);
-                return member == null ?
-                    new Result<MemberListDto>(false, "E-posta veya şifre yanlış")
-                   : new Result<MemberListDto>(true, _mapper.Map<MemberListDto>(member));
+                var data = _repository.GetByFilter(x => x.Email == dto.Email);
+                if (data != null)
+                {
+                    string salt = data.Salt;
+                    string hashedPasswordEntered = PasswordHasher.HashPassword(dto.Password, salt);
+                    return hashedPasswordEntered == data.PasswordHash ? new Result<MemberListDto>(true,_mapper.Map<MemberListDto>(data))
+                           : new Result<MemberListDto>(false,"Eposta ya da şifre yanlış");
+                }
+                else
+                {
+                    return new Result<MemberListDto>(false, "Böyle bir kullanıcı bulunamadı");
+                }
             }
             catch (Exception ex)
             {
                 return new Result<MemberListDto>(false, ex.Message);
             }
         }
+
+        public IResult<Member> GetByEmail(string email)
+        {
+            var data = _repository.GetByFilter(x => x.Email == email);
+            return data!=null ? new Result<Member>(true,data) : new Result<Member>(false,"Kullanıcı bulunamadı");
+        }
+
 
         public IResult Create(MemberSignUpDto memberSignUpDto)
         {
@@ -66,9 +81,10 @@ namespace Business.Concrete
             }
         }
 
-        public IResult GetById(int id)
+        public IResult<Member> GetById(int id)
         {
-            return new Result();
+            var data = _repository.GetById(id);
+            return data != null ? new Result<Member>(true,data) : new Result<Member>(false, "Kullanıcı bulunamadı");
         }
 
         public IResult Update(Member member)

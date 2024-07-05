@@ -12,7 +12,7 @@
     margin-bottom: 50px;
     border: #04105a;
     border-style: outset;
-    border-radius: initial;" src="~/brand_images/@Model.ImgName" />
+    border-radius: initial;" src="@Model.ImgName" />
 <form method="post" asp-action="Update" asp-controller="CarBrand" enctype="multipart/form-data">
     <input type="hidden" asp-for="@Model.Id" />
     <input type="hidden" asp-for="@Model.ImgName" />

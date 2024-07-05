@@ -18,14 +18,14 @@ if (!app.Environment.IsDevelopment())
 
 
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions
-{
-    OnPrepareResponse = ctx =>
-    {
-        // Cache-Control header'ý ayarlama
-        ctx.Context.Response.Headers.Append("Cache-Control", "public, max-age=600");
-    }
-});
+//app.UseStaticFiles(new StaticFileOptions
+//{
+//    OnPrepareResponse = ctx =>
+//    {
+//        // Cache-Control header'ý ayarlama
+//        ctx.Context.Response.Headers.Append("Cache-Control", "public, max-age=600");
+//    }
+//});
 app.UseRouting();
 
 app.UseAuthentication();

@@ -3,9 +3,9 @@
 
 
 <script>
-    @if (!Model.Item1)
+    @if (Model.Item1)
     {
-        @:alertify.success('Kayıt başarıyla oluşturuldu.');
+        @:alertify.success('İşlem başarılı.');
     }
     else
     {
