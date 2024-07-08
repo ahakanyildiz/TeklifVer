@@ -36,16 +36,16 @@ namespace TeklifVer.Business.DependencyResolvers
         {
             #region Dependency Injection
             services.AddScoped<IMemberService, MemberService>();
-            services.AddScoped<ICarBrandService, CarBrandService>();
-            services.AddScoped<ICarModelService, CarModelService>();
+            services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IModelService, ModelService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMemberRepository, MemberRepository>();
-            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IAdvertisingService, AdvertisingService>();
             services.AddDbContext<CarContext>(
                 options =>
             options.UseSqlServer(connectionString)
             );
-            services.AddDbContext<CarContext>();
+            //services.AddDbContext<CarContext>();
             #endregion
 
 

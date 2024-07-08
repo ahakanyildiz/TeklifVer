@@ -7,7 +7,7 @@ namespace TeklifVer.Common.Helpers
 
     public static class PasswordHasher
     {
-        public static string HashPassword(string password, string salt )
+        public static string HashPassword(string password, string salt)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {

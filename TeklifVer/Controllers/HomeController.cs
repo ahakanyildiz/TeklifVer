@@ -11,10 +11,10 @@ namespace TeklifVer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICarModelService _carModelService;
-        private readonly ICarBrandService _carBrandService;
+        private readonly IModelService _carModelService;
+        private readonly IBrandService _carBrandService;
         private readonly IMemberService _memberService;
-        public HomeController(ILogger<HomeController> logger, ICarModelService service, IMemberService memberService, ICarBrandService carBrandService)
+        public HomeController(ILogger<HomeController> logger, IModelService service, IMemberService memberService, IBrandService carBrandService)
         {
             _logger = logger;
             _carModelService = service;
@@ -27,6 +27,7 @@ namespace TeklifVer.Controllers
             var data = _carBrandService.GetAll().Data;
             ViewData["MarkaCount"] = data.Count();
             ViewData["ModelCount"] = _carModelService.GetAll().Data.Count();
+            ViewBag.CustomCss = "Main/Main.css";
             var members = _memberService.GetAll();
             return View(members.Data);
         }

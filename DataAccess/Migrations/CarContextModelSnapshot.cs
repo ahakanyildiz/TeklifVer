@@ -21,7 +21,7 @@ namespace TeklifVer.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entities.Car", b =>
+            modelBuilder.Entity("Entities.Advertising", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,10 +33,20 @@ namespace TeklifVer.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ViewsCount")
                         .HasColumnType("int");
 
                     b.Property<int>("Year")
@@ -44,12 +54,14 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MemberId");
+
                     b.HasIndex("ModelId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Advertisings");
                 });
 
-            modelBuilder.Entity("Entities.CarBrand", b =>
+            modelBuilder.Entity("Entities.Brand", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,28 +77,7 @@ namespace TeklifVer.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarBrands");
-                });
-
-            modelBuilder.Entity("Entities.CarModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Definition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BrandId");
-
-                    b.ToTable("CarModels");
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("Entities.Member", b =>
@@ -123,19 +114,50 @@ namespace TeklifVer.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Members");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "teknomanihah@gmail.com",
-                            Name = "Hakan",
-                            PasswordHash = "h1oFmK/Df2M12QEpSyUfW17m7w08lutVc0SLOXlV0ig=",
-                            PhoneNumber = "5060407176",
-                            RoleId = 2,
-                            Salt = "JtFEQoLF5HcvaaE+DYXhFw==",
-                            Surname = "Yıldız"
-                        });
+            modelBuilder.Entity("Entities.Model", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Definition")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
+
+                    b.ToTable("Models");
+                });
+
+            modelBuilder.Entity("TeklifVer.Entities.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdvertisingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MemberId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdvertisingId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("Offers");
                 });
 
             modelBuilder.Entity("TeklifVer.Entities.Role", b =>
@@ -152,40 +174,25 @@ namespace TeklifVer.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Definition = "Member"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Definition = "Admin"
-                        });
                 });
 
-            modelBuilder.Entity("Entities.Car", b =>
+            modelBuilder.Entity("Entities.Advertising", b =>
                 {
-                    b.HasOne("Entities.CarModel", "CarModel")
-                        .WithMany("Cars")
+                    b.HasOne("Entities.Member", "Member")
+                        .WithMany("Advertisings")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Model", "Model")
+                        .WithMany("Advertisings")
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("CarModel");
-                });
+                    b.Navigation("Member");
 
-            modelBuilder.Entity("Entities.CarModel", b =>
-                {
-                    b.HasOne("Entities.CarBrand", "Brand")
-                        .WithMany("CarModels")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Brand");
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("Entities.Member", b =>
@@ -193,20 +200,62 @@ namespace TeklifVer.DataAccess.Migrations
                     b.HasOne("TeklifVer.Entities.Role", "Role")
                         .WithMany("Members")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Entities.CarBrand", b =>
+            modelBuilder.Entity("Entities.Model", b =>
                 {
-                    b.Navigation("CarModels");
+                    b.HasOne("Entities.Brand", "Brand")
+                        .WithMany("Models")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Brand");
                 });
 
-            modelBuilder.Entity("Entities.CarModel", b =>
+            modelBuilder.Entity("TeklifVer.Entities.Offer", b =>
                 {
-                    b.Navigation("Cars");
+                    b.HasOne("Entities.Advertising", "Advertising")
+                        .WithMany("Offers")
+                        .HasForeignKey("AdvertisingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Member", "Member")
+                        .WithMany("Offers")
+                        .HasForeignKey("MemberId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Advertising");
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("Entities.Advertising", b =>
+                {
+                    b.Navigation("Offers");
+                });
+
+            modelBuilder.Entity("Entities.Brand", b =>
+                {
+                    b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("Entities.Member", b =>
+                {
+                    b.Navigation("Advertisings");
+
+                    b.Navigation("Offers");
+                });
+
+            modelBuilder.Entity("Entities.Model", b =>
+                {
+                    b.Navigation("Advertisings");
                 });
 
             modelBuilder.Entity("TeklifVer.Entities.Role", b =>

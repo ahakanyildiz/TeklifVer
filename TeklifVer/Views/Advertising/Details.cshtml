@@ -1,0 +1,27 @@
+﻿@using TeklifVer.Dto.Car;
+@model AdvertisingListDto
+@{
+    ViewData["Title"] = Model.Definition;
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<div class="container">
+    <div class="content">
+        <div class="contentHead">
+            <h1>@Model.Definition</h1>
+            <img src="https://via.placeholder.com/1200x600?text=Slide%201" style="width:500px;" />
+        </div>
+        <div class="contentBody">
+            <p>@Model.Description</p>
+        </div>
+
+        <a class="btn">Teklif Ver</a>
+    </div>
+</div>
+
+
+
+
+
+

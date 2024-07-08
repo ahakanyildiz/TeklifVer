@@ -8,9 +8,9 @@ namespace TeklifVer.Business.Mappings.Profiles
     {
         public CarBrandProfile()
         {
-            CreateMap<CarBrand, CarBrandListDto>().ReverseMap();
-            CreateMap<CarBrand, CarBrandCreateDto>().ReverseMap();
-            CreateMap<CarBrand, CarBrandUpdateDto>().ReverseMap();
+            CreateMap<Brand, BrandListDto>().ReverseMap();
+            CreateMap<Brand, BrandCreateDto>().ReverseMap();
+            CreateMap<Brand, BrandUpdateDto>().ReverseMap();
         }
     }
 }

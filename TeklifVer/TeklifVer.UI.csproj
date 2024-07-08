@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\brand_images\" />
+    <Folder Include="wwwroot\js\Main\" />
     <Folder Include="wwwroot\model_images\" />
   </ItemGroup>
 

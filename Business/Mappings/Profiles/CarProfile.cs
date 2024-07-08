@@ -9,17 +9,18 @@ namespace TeklifVer.Business.Mappings.Profiles
     {
         public CarProfile()
         {
-            CreateMap<Car, CarListDto>()
-                  .ForMember(dest => dest.Model, opt => opt.MapFrom(src => new CarModelListDto
-                  {
-                      Id = src.CarModel.Id,
-                      Definition = src.CarModel.Definition,
-                      BrandId = src.CarModel.BrandId
-                  })).ReverseMap();
+            CreateMap<Advertising, AdvertisingListDto>().ReverseMap();
+                  //.ForMember(dest => dest.Model, opt => opt.MapFrom(src => new CarModelListDto
+                  //{
+                  //    Id = src.CarModel.Id,
+                  //    Definition = src.CarModel.Definition,
+                  //    BrandId = src.CarModel.BrandId
+                  //})).ReverseMap();
 
             //CreateMap<Car, CarListDto>().ReverseMap();
-            CreateMap<CarCreateDto, Car>().ReverseMap();
-            CreateMap<CarUpdateDto, Car>().ReverseMap();
+            CreateMap<AdvertisingCreateDto, Advertising>().ReverseMap();
+            CreateMap<AdvertisingUpdateDto, Advertising>().ReverseMap();
+            CreateMap<AdvertisingUpdateDto, AdvertisingListDto>().ReverseMap();
         }
     }
 }

@@ -12,5 +12,6 @@ namespace Business.Abstract
         public IResult<IEnumerable<Member>> GetAll();
         public IResult<Member> GetById(int id);
         public IResult<MemberListDto> AuthenticateUser(MemberLoginDto dto);
+        public void CreateUserAndRoles();
     }
 }

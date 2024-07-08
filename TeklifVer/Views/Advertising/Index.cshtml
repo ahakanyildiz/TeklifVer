@@ -1,0 +1,22 @@
+﻿@using TeklifVer.Dto.Car;
+@model List<AdvertisingListDto>
+@{
+    ViewData["Title"] = "İlanlar";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+
+<div class="ilanlar">
+    @foreach (var ilan in Model)
+    {
+        <div class="card">
+            <img src="https://via.placeholder.com/300" class="card-img-top" alt="Card Image">
+            <div class="card-body">
+                <h5 class="card-title">@string.Concat(@ilan.Model.Brand.Definition + " " +ilan.Model.Definition +" "+ilan.Year) </h5>
+                <p class="card-text"> @string.Concat(@ilan.Price + " TL")</p>
+                <a asp-action="Details" asp-controller="Advertising" asp-route-id="@ilan.Id" class="btn btn-primary">İlana Git</a>
+            </div>
+        </div>
+    }
+</div>

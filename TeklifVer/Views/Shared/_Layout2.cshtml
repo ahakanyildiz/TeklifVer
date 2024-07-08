@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/Layout2Css.css" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @if (ViewBag.CustomCss != null)
+    {
+        <link rel="stylesheet" href="~/css/@ViewBag.CustomCss" />
+
+    }
+        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/js/Layout2.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<header>
+
+    @if (TempData["isOkey"] != null)
+    {
+        @if (TempData["isOkey"].ToString() == "Okey")
+        {
+            <partial name="SuccessNotification" model="@(true,TempData["message"].ToString())"></partial>
+        }
+        else
+        {
+            <partial name="SuccessNotification" model="@(false,TempData["message"].ToString())"></partial>
+        }
+    }
+    <nav class="navbar">
+        <div class="navbar-logo">TeklifVer.Com</div>
+        <ul class="navbar-menu">
+            <li class="navbar-item"><a asp-action="Index" asp-controller="Main">Anasayfa</a></li>
+            <li class="navbar-item"><a asp-action="Index" asp-controller="Advertising">İlanlar</a></li>
+
+              @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="navbar-item"><a asp-action="GirisYap" asp-controller="Login">Giriş Yap</a></li>
+            }
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="navbar-item"><a asp-action="CreateAdvertising" asp-controller="Advertising">İlan Oluştur</a></li>
+                <li class="navbar-item"><a asp-action="SignOut" asp-controller="Login">Çıkış Yap</a></li>
+            }
+        </ul>
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+</header>
+<body>
+
+    @RenderBody()
+
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <ul class="footer-menu">
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">Hizmetler</a></li>
+                <li><a href="#">İletişim</a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

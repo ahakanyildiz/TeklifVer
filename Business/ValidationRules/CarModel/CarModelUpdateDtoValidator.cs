@@ -3,7 +3,7 @@ using TeklifVer.Dto.CarModel;
 
 namespace TeklifVer.Business.ValidationRules.CarModel
 {
-    public class CarModelUpdateDtoValidator : AbstractValidator<CarModelUpdateDto>
+    public class CarModelUpdateDtoValidator : AbstractValidator<ModelUpdateDto>
     {
         public CarModelUpdateDtoValidator()
         {

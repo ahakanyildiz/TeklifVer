@@ -10,15 +10,15 @@ namespace TeklifVer.Business.Mappings.Profiles
     {
         public CarModelProfile()
         {
-            CreateMap<CarModel, CarModelListDto>()
-             .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand != null ? new CarBrandListDto
+            CreateMap<Model, ModelListDto>()
+             .ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand != null ? new BrandListDto
              {
                  Id = src.Brand.Id,
                  Definition = src.Brand.Definition,
                  ImgName = src.Brand.ImgName
              } : null));
-            CreateMap<CarModel, CarModelCreateDto>().ReverseMap();
-            CreateMap<CarModel, CarModelUpdateDto>().ReverseMap();
+            CreateMap<Model, ModelCreateDto>().ReverseMap();
+            CreateMap<Model, ModelUpdateDto>().ReverseMap();
 
         }
     }

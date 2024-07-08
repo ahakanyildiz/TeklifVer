@@ -1,0 +1,28 @@
+﻿@using TeklifVer.Dto.Member;
+@model MemberLoginDto
+@{
+    ViewData["Title"] = "Giriş Yap";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="login-container">
+        <form class="login-form" method="post" asp-action="GirisYap" asp-controller="Login">
+            <div class="form-group">
+
+                <label>E-mail:</label>
+                <input type="text" class="form-control" asp-for="@Model.Email" placeholder="noname@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="input2">Password:</label>
+                <input type="password" class="form-control" asp-for="@Model.Password">
+            </div>
+            <button class="transparent-button" type="submit" style="background-color:#34833a;width: 100%;">
+                Giriş Yap
+            </button>
+        </form>
+    </div>
+    <p><a asp-action="SignUp" asp-controller="Login">Üyeliğiniz yoksa buraya tıklayıp üye kayıt ekranına gidebilirsiniz.</a></p>
+</div>

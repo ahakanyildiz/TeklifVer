@@ -8,9 +8,9 @@ namespace TeklifVer.Business.Mappings.Profiles
     {
         public MemberProfile()
         {
-            CreateMap<Member, MemberListDto>();
-            CreateMap<Member, MemberLoginDto>();
-            CreateMap<Member, MemberSignUpDto>();
+            CreateMap<Member, MemberListDto>().ReverseMap();
+            CreateMap<Member, MemberLoginDto>().ReverseMap();
+            CreateMap<Member, MemberSignUpDto>().ReverseMap();
         }
     }
 }

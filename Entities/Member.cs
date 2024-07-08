@@ -13,6 +13,8 @@ namespace Entities
         public string? PhoneNumber { get; set; }
         public int RoleId { get; set; }
         public Role? Role { get; set; }
+        public ICollection<Offer> Offers{ get; set; }
+        public ICollection<Advertising> Advertisings{ get; set; }
 
     }
 }

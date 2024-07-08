@@ -3,7 +3,7 @@ using TeklifVer.Dto.CarBrand;
 
 namespace TeklifVer.Business.ValidationRules.CarBrand
 {
-    public class CarBrandCreateDtoValidator : AbstractValidator<CarBrandCreateDto>
+    public class CarBrandCreateDtoValidator : AbstractValidator<BrandCreateDto>
     {
         public CarBrandCreateDtoValidator()
         {

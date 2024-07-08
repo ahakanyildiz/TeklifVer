@@ -1,0 +1,36 @@
+﻿@using TeklifVer.UI.Models.CarModel;
+@model ModelUpdateModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/js/CarModel/CarModel.js"></script>
+<form method="post" asp-action="Update" asp-controller="Model">
+<div class="form-group">
+    <label class="form-label">Marka Seçiniz:</label>
+    <select id="brandCreateSelect" asp-for="@Model.BrandId" class="form-select">
+        <option selected>Marka Seçiniz...</option>
+
+        @foreach (var item in Model.BrandsList)
+        {
+                @if (item.Id == Model.BrandId)
+                {
+                    <option value="@item.Id" disable selected>@item.Definition</option>
+                }
+                else
+                {
+                    <option value="@item.Id">@item.Definition</option>
+                }
+        }
+    </select>
+</div>
+
+<div class="form-group mt-3">
+    <label class="form-label">Model isim:</label>
+    <input class="form-control" type="text" asp-for="@Model.Definition" />
+</div>
+
+<button type="submit" class="btn btn-primary mt-3">Güncelle</button>
+</form>

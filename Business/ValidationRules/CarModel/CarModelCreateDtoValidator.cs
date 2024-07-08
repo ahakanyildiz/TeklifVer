@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace TeklifVer.Business.ValidationRules.CarModel
 {
-    public class CarModelCreateDtoValidator : AbstractValidator<CarModelCreateDto>
+    public class CarModelCreateDtoValidator : AbstractValidator<ModelCreateDto>
     {
         public CarModelCreateDtoValidator()
         {

@@ -6,6 +6,10 @@
     <title>Admin Panel</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @if (ViewBag.CustomCss != null)
+    {
+          <link rel="stylesheet" href="~/css/@ViewBag.CustomCss" />
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="~/css/popupForm.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap.css" />
@@ -52,9 +56,9 @@
                 <ul>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a class="menuItem" asp-action="Index" asp-controller="CarBrand">Marka</a></li>
-                        <li><a class="menuItem" asp-action="Index" asp-controller="CarModel">Model</a></li>
-                        <li><a class="menuItem" asp-action="Index" asp-controller="Car">Araba</a></li>
+                        <li><a class="menuItem" asp-action="Index" asp-controller="Brand">Marka</a></li>
+                        <li><a class="menuItem" asp-action="Index" asp-controller="Model">Model</a></li>
+                        <li><a class="menuItem" asp-action="Index" asp-controller="Ads">Araba</a></li>
                         <li><a class="signOut" asp-action="SignOut" asp-controller="Login">Çıkış Yap</a></li>
                     }
                 </ul>

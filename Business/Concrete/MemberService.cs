@@ -2,10 +2,13 @@
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using TeklifVer.Common.Enums;
 using TeklifVer.Common.Helpers;
 using TeklifVer.Common.ResultPattern;
 using TeklifVer.Dto.Member;
+using TeklifVer.Entities;
 
 namespace Business.Concrete
 {
@@ -13,11 +16,47 @@ namespace Business.Concrete
     {
         private readonly IRepository<Member> _repository;
         private readonly IMapper _mapper;
-        public MemberService(IRepository<Member> repository, IMapper mapper)
+        private readonly IRepository<Role> _roleRepository;
+        public MemberService(IRepository<Member> repository, IMapper mapper, IRepository<Role> roleRepository)
         {
             _repository = repository;
             _mapper = mapper;
+            _roleRepository = roleRepository;
         }
+
+
+        public void CreateUserAndRoles()
+        {
+
+            //var role1 = new Role()
+            //{
+            //    Definition = "Member"
+            //};
+
+            //var role2 = new Role()
+            //{
+            //    Definition = "Admin"
+            //};
+
+            //_roleRepository.Create(role1);
+            //_roleRepository.Create(role2);
+
+            var salt = PasswordHasher.GenerateSalt();
+            var member1 = new Member() 
+            {
+                Email = "teknomanihah@gmail.com",
+                Name = "Hakan",
+                Surname = "Yıldız",
+                Salt = salt,
+                PasswordHash = PasswordHasher.HashPassword("123", salt),
+                PhoneNumber = "5060407176",
+                RoleId = (int)RoleType.Admin
+            };
+
+            _repository.Create(member1);
+
+        }
+
 
         public IResult<MemberListDto> AuthenticateUser(MemberLoginDto dto)
         {
@@ -28,8 +67,8 @@ namespace Business.Concrete
                 {
                     string salt = data.Salt;
                     string hashedPasswordEntered = PasswordHasher.HashPassword(dto.Password, salt);
-                    return hashedPasswordEntered == data.PasswordHash ? new Result<MemberListDto>(true,_mapper.Map<MemberListDto>(data))
-                           : new Result<MemberListDto>(false,"Eposta ya da şifre yanlış");
+                    return hashedPasswordEntered == data.PasswordHash ? new Result<MemberListDto>(true, _mapper.Map<MemberListDto>(data))
+                           : new Result<MemberListDto>(false, "Eposta ya da şifre yanlış");
                 }
                 else
                 {
@@ -45,15 +84,16 @@ namespace Business.Concrete
         public IResult<Member> GetByEmail(string email)
         {
             var data = _repository.GetByFilter(x => x.Email == email);
-            return data!=null ? new Result<Member>(true,data) : new Result<Member>(false,"Kullanıcı bulunamadı");
+            return data != null ? new Result<Member>(true, data) : new Result<Member>(false, "Kullanıcı bulunamadı");
         }
-
 
         public IResult Create(MemberSignUpDto memberSignUpDto)
         {
             try
             {
                 memberSignUpDto.RoleId = (int)RoleType.Member;
+                memberSignUpDto.Salt = PasswordHasher.GenerateSalt();
+                memberSignUpDto.PasswordHash = PasswordHasher.HashPassword(memberSignUpDto.PasswordHash, memberSignUpDto.Salt);
                 _repository.Create(_mapper.Map<Member>(memberSignUpDto));
                 return new Result(true);
             }
@@ -84,14 +124,13 @@ namespace Business.Concrete
         public IResult<Member> GetById(int id)
         {
             var data = _repository.GetById(id);
-            return data != null ? new Result<Member>(true,data) : new Result<Member>(false, "Kullanıcı bulunamadı");
+            return data != null ? new Result<Member>(true, data) : new Result<Member>(false, "Kullanıcı bulunamadı");
         }
 
         public IResult Update(Member member)
         {
             throw new NotImplementedException();
         }
-
 
     }
 }

@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklifVer.Common", "TeklifV
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklifVer.Dto", "TeklifVer.Dto\TeklifVer.Dto.csproj", "{A87384E1-1D1B-44CB-B8C7-9DC42B295336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeklifVer.Console", "TeklifVer.Console\TeklifVer.Console.csproj", "{3018EE81-9AAA-4F70-9E9C-1D4C709C6FD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklifVer.Console", "TeklifVer.Console\TeklifVer.Console.csproj", "{3018EE81-9AAA-4F70-9E9C-1D4C709C6FD3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{896CAB00-7E5B-4BC5-9AB1-0EDB286BA8B0}"
+	ProjectSection(SolutionItems) = preProject
+		Tasks.txt = Tasks.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,5 @@
 ﻿using Entities;
 using Microsoft.EntityFrameworkCore;
-using TeklifVer.Common.Enums;
-using TeklifVer.Common.Helpers;
 using TeklifVer.Entities;
 
 namespace DataAccess.Contexts
@@ -9,12 +7,12 @@ namespace DataAccess.Contexts
 
     public class CarContext : DbContext
     {
-        public DbSet<Car> Cars { get; set; }
-        public DbSet<CarBrand> CarBrands { get; set; }
-        public DbSet<CarModel> CarModels { get; set; }
+        public DbSet<Advertising> Advertisings { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Role> Roles { get; set; }
-
+        public DbSet<Offer> Offers { get; set; }
         public CarContext(DbContextOptions options) : base(options)
         {
         }
@@ -26,51 +24,42 @@ namespace DataAccess.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //    modelBuilder.Entity<CarModel>()
-            //        .HasMany(b => b.Cars)
-            //        .WithOne(p => p.CarModel)
-            //        .HasForeignKey(p => p.ModelId);
+            modelBuilder.Entity<Model>()
+                .HasMany(b => b.Advertisings)
+                .WithOne(p => p.Model)
+                .HasForeignKey(p => p.ModelId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<CarBrand>()
-            //       .HasMany(b => b.CarModels)
-            //       .WithOne(p => p.Brand)
-            //       .HasForeignKey(p => p.BrandId);
+            modelBuilder.Entity<Brand>()
+               .HasMany(b => b.Models)
+               .WithOne(p => p.Brand)
+               .HasForeignKey(p => p.BrandId)
+               .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<Role>()
-            //      .HasMany(b => b.Members)
-            //      .WithOne(p => p.Role)
-            //      .HasForeignKey(p => p.RoleId);
+            modelBuilder.Entity<Role>()
+              .HasMany(b => b.Members)
+              .WithOne(p => p.Role)
+              .HasForeignKey(p => p.RoleId)
+              .OnDelete(DeleteBehavior.Restrict);
 
-            //    var salt = PasswordHasher.GenerateSalt();
-            //    var member1 = new Member() //initial metod
-            //    {
-            //        Id = 1,
-            //        Email = "teknomanihah@gmail.com",
-            //        Name = "Hakan",
-            //        Surname = "Yıldız",
-            //        Salt =salt ,
-            //        PasswordHash = PasswordHasher.HashPassword("123", salt),
-            //        PhoneNumber = "5060407176",
-            //        RoleId = (int)RoleType.Admin
-            //    };
+            modelBuilder.Entity<Member>()
+                .HasMany(b => b.Advertisings)
+                .WithOne(p => p.Member)
+                .HasForeignKey(p => p.MemberId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            //    modelBuilder.Entity<Member>().HasData(member1);
+            modelBuilder.Entity<Offer>()
+             .HasOne(o => o.Member)
+             .WithMany(m => m.Offers)
+             .HasForeignKey(o => o.MemberId)
+             .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Offer>()
+                .HasOne(o => o.Advertising)
+                .WithMany(a => a.Offers)
+                .HasForeignKey(o => o.AdvertisingId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-
-
-            //    modelBuilder.Entity<Role>().HasData(
-            //    new Role() //initial metod
-            //    {
-            //        Id = 1,
-            //        Definition = "Member"
-            //    },
-            //    new Role() //initial metod
-            //    {
-            //        Id = 2,
-            //        Definition = "Admin"
-            //    }
-            //    );
         }
 
     }

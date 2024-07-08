@@ -1,0 +1,11 @@
+->Profilim sekmesi yapılacak.
+	->İlanlarım
+	->Teklif Yaptığım İlanlar
+	->Bilgilerimi Güncelle
+	->Çıkış
+
+
+->İlanlar sayfasında filtreleme yapılacak.
+
+
+ ->	("Mesajlaşma olursa tadından yenmez") <- //WebSocket 

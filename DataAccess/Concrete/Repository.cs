@@ -56,25 +56,32 @@ namespace DataAccess.Concrete
 
         public T GetById(int id, string includeTables)
         {
-            string[] includeArray = includeTables.Split('.');
-            IQueryable<T> query = _context.Set<T>().AsQueryable();
+            var query = _context.Set<T>().AsQueryable();
 
-            foreach (var table in includeArray)
+            if (!string.IsNullOrEmpty(includeTables))
             {
-                query = query.Include(table).Include(x => EF.Property<int>(x, "Brand"));
+                var includeProperties = includeTables.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
             }
-
             return query.FirstOrDefault(entity => EF.Property<int>(entity, "Id") == id);
         }
 
         public IQueryable<T> GetAll(string includeTables)
         {
-            string[] includeArray = includeTables.Split('.');
-            IQueryable<T> query = _context.Set<T>().AsQueryable();
-            foreach (var table in includeArray)
+            var query = _context.Set<T>().AsQueryable();
+
+            if (!string.IsNullOrEmpty(includeTables))
             {
-                query = query.Include(table.Trim());
+                var includeProperties = includeTables.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
             }
+
             return query;
         }
     }

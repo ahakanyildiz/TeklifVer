@@ -3,12 +3,14 @@
 
 
 <script>
+    var message = '@Model.Item2';
+
     @if (Model.Item1)
     {
-        @:alertify.success('İşlem başarılı.');
+        @:alertify.success(message);
     }
     else
     {
-        @:alertify.error('İşlem başarısız.');
+        @:alertify.error(message);
     }
 </script>
