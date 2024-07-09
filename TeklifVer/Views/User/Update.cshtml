@@ -1,0 +1,70 @@
+﻿@using TeklifVer.Dto.Car;
+@using TeklifVer.Dto.CarBrand;
+@using TeklifVer.Dto.CarModel;
+@model AdvertisingListDto
+@{
+    ViewData["Title"] = "İlan Güncelle";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+<script src="~/js/User/AdsUpdate.js"></script>
+<div class="content">
+    <form id="brandForm" method="post" asp-action="Update" asp-controller="User">
+        <input type="hidden" name="MemberId" value="@Model.MemberId" />
+        <input type="hidden" name="MemberId" value="@Model.ViewsCount" />
+        <div class="form-group">
+            <label>Başlık:</label>
+            <input placeholder="Başlık giriniz" name="definition" id="Definition" type="text" value="@Model.Definition" />
+        </div>
+        <div class="form-group">
+            <label>Açıklama:</label>
+            <input type="text" placeholder="Açıklama giriniz" name="Description" id="Description" value="@Model.Description" />
+        </div>
+        <div class="form-group">
+            <label>Marka Seçiniz:</label>
+            <select name="BrandId" id="carBrandSelect">
+                <option disabled>Marka seçiniz</option>
+                @foreach (var item in (List<BrandListDto>)TempData["Brands"])
+                {  
+                    @if (Model.Model.BrandId == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Definition</option>
+                    }
+                    else
+                    {
+                          <option value="@item.Id">@item.Definition</option>
+                    }
+                }
+                
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Model Seçiniz:</label>
+            <select name="ModelId" id="carModelSelect">
+                <option disabled>Model seçiniz</option>
+                @foreach (var item in (List<ModelListDto>)ViewData["Models"])
+                {
+                    @if (Model.ModelId == item.Id)
+                    {
+                        <option value="@item.Id" selected>@item.Definition</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id">@item.Definition</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Sene:</label>
+            <input type="number" id="Year" name="Year" min="1900" max="@DateTime.Now.Year" step="1" placeholder="YYYY" value="@Model.Year">
+        </div>
+
+        <div class="form-group">
+            <label>Fiyat:</label>
+            <input placeholder="Fiyat bilgisi giriniz:" type="number" id="Price" name="Price" value="@Model.Price">
+        </div>
+        <button class="button success" id="btnCreate" type="submit">Güncelle</button>
+    </form>
+</div>

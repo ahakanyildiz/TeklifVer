@@ -2,8 +2,6 @@
 using Business.Abstract;
 using DataAccess.Abstract;
 using Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 using TeklifVer.Common.Enums;
 using TeklifVer.Common.Helpers;
 using TeklifVer.Common.ResultPattern;
@@ -28,21 +26,21 @@ namespace Business.Concrete
         public void CreateUserAndRoles()
         {
 
-            //var role1 = new Role()
-            //{
-            //    Definition = "Member"
-            //};
+            var role1 = new Role()
+            {
+                Definition = "Member"
+            };
 
-            //var role2 = new Role()
-            //{
-            //    Definition = "Admin"
-            //};
+            var role2 = new Role()
+            {
+                Definition = "Admin"
+            };
 
-            //_roleRepository.Create(role1);
-            //_roleRepository.Create(role2);
+            _roleRepository.Create(role1);
+            _roleRepository.Create(role2);
 
             var salt = PasswordHasher.GenerateSalt();
-            var member1 = new Member() 
+            var member1 = new Member()
             {
                 Email = "teknomanihah@gmail.com",
                 Name = "Hakan",
@@ -121,15 +119,30 @@ namespace Business.Concrete
             }
         }
 
-        public IResult<Member> GetById(int id)
+        public IResult<MemberListDto> GetById(int id)
         {
             var data = _repository.GetById(id);
-            return data != null ? new Result<Member>(true, data) : new Result<Member>(false, "Kullanıcı bulunamadı");
+            return data != null ? new Result<MemberListDto>(true, _mapper.Map<MemberListDto>(data)) : new Result<MemberListDto>(false, "Kullanıcı bulunamadı");
         }
 
-        public IResult Update(Member member)
+        public IResult Update(MemberUpdateDto dto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var member = _repository.GetById(dto.Id);
+                dto.RoleId = member.RoleId;
+                dto.PasswordHash = member.PasswordHash;
+                dto.Salt = member.Salt;
+                _repository.UpdateEntryState(member, _mapper.Map<Member>(dto));
+                return new Result(true);
+
+            }
+            catch (Exception ex)
+            {
+
+                return new Result(false, ex.Message);
+            }
+
         }
 
     }

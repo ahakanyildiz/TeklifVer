@@ -10,6 +10,7 @@ namespace DataAccess.Contexts
         public DbSet<Advertising> Advertisings { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Model> Models { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Offer> Offers { get; set; }

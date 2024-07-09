@@ -14,7 +14,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 30px;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 98%;
@@ -47,6 +47,50 @@
             color: #57a3d6;
         }
 
+.profile {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    cursor: pointer;
+    padding: 14px 20px;
+}
+
+/* Eklenen CSS */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #34833a;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 5px 0; /* İç boşluk azaltıldı */
+}
+
+    .dropdown-content > li {
+        list-style:none;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 8px 10px;
+        font-size: 14px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+.profile:hover .dropdown-content {
+    display: block;
+}
+
+
+/*
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -58,7 +102,7 @@
     margin: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-}
+}*/
 
 .dropdown-item {
     padding: 10px 20px;
@@ -190,69 +234,6 @@
 
     .social-link:hover {
         color: #57a3d6;
-    }
-
-
-.slider-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 50px auto;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.slider {
-    display: flex;
-    transition: transform 0.5s ease;
-}
-
-.slide {
-    flex: 0 0 100%;
-    transition: transform 0.5s ease;
-}
-
-    .slide img {
-        width: 100%;
-        height: auto;
-    }
-
-.slide-content {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    max-width: 300px;
-}
-
-    .slide-content h2 {
-        margin-bottom: 10px;
-        font-size: 1.5em;
-    }
-
-.prev-btn, .next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.prev-btn {
-    left: 10px;
-}
-
-.next-btn {
-    right: 10px;
-}
-
-    .prev-btn:hover, .next-btn:hover {
-        background-color: rgba(0, 0, 0, 0.8);
     }
 
 
@@ -405,4 +386,55 @@
     .ErrorsBox > ul {
         color: white;
         margin-left: 30px;
+    }
+
+
+.slider {
+    position: relative;
+    max-width: 800px;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
     }

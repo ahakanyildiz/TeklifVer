@@ -9,6 +9,5 @@ namespace TeklifVer.UI.Controllers
         {
             return View();
         }
-
     }
 }

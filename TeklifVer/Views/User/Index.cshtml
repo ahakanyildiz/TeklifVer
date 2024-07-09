@@ -1,0 +1,22 @@
+﻿@using TeklifVer.Dto.Member;
+@model MemberListDto
+@{
+    ViewData["Title"] = "Profil Bilgilerim "; /*@String.Concat(Model.Name+ " " Model.Surname)*/
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["CustomCss"] = "/User/Index.css";
+}
+
+
+<div class="container">
+   
+    <div class="profileCard">
+        <div class="profileImage"><img style="width:400px;" src="https://digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png" /></div>
+    <div class="profileCardContent">
+        <div class="infoText"><label>Ad:@Model.Name</label></div>
+        <div class="infoText"> <label>Soyad:@Model.Surname</label></div>
+        <div class="infoText"> <label>Telefon:@Model.PhoneNumber</label></div>
+        <div class="infoText">  <label>E-mail: @Model.Email</label></div>
+    </div>
+        <div class="infoText"> <a href="Profil/BilgilerimiGuncelle">Bilgilerimi Güncelle</a></div>
+    </div>
+</div>

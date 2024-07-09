@@ -1,0 +1,27 @@
+﻿@using System.Security.Claims;
+@using TeklifVer.Dto.Offer;
+@model OfferCreateDto
+@{
+    ViewData["Title"] = "GiveOffer";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+
+
+
+<div class="container">
+    <form method="post" asp-action="GiveOffer" asp-controller="Advertising">
+        <input type="hidden" asp-for="@Model.AdvertisingId" />
+        <input type="hidden" asp-for="@Model.MemberId" value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+        <div class="form-group">
+            <label>Teklif Edilen Fiyat: </label>
+            <input asp-for="@Model.Price" type="number" />
+        </div>
+        <div class="form-group">
+            <label>Mesajınız: </label>
+            <input type="text" asp-for="@Model.Message" />
+        </div>
+        <button class="button button-primary">Oluştur</button>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+﻿.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+    padding:100px;
+}
+
+.profileCard{
+
+}
+
+.profileCardContent {
+    border-style: outset;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    width:100%;
+}
+
+.infoText {
+    padding: 10px;
+}
+
+    .infoText > a {
+        margin-top: 20px;
+        text-decoration: none;
+        border-style: groove;
+        padding: 5px;
+        background-color: #356939;
+        color: white;
+        border-color: #662727;
+        border-radius: 7px;
+        border-color: #34833a;
+    }

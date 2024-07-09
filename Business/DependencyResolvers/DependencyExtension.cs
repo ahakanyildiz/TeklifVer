@@ -25,6 +25,8 @@ namespace TeklifVer.Business.DependencyResolvers
             opt.AddProfile(new CarModelProfile());
             opt.AddProfile(new CarProfile());
             opt.AddProfile(new MemberProfile());
+            opt.AddProfile(new OfferProfile());
+            opt.AddProfile(new SliderProfile());
         });
 
             var mapper = configuration.CreateMapper();
@@ -37,7 +39,9 @@ namespace TeklifVer.Business.DependencyResolvers
             #region Dependency Injection
             services.AddScoped<IMemberService, MemberService>();
             services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<ISliderService, SliderService>();
             services.AddScoped<IModelService, ModelService>();
+            services.AddScoped<IOfferService, OfferService>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IMemberRepository, MemberRepository>();
             services.AddScoped<IAdvertisingService, AdvertisingService>();
@@ -56,7 +60,7 @@ namespace TeklifVer.Business.DependencyResolvers
            options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
            options.SlidingExpiration = true;
            options.AccessDeniedPath = "/Forbidden/";
-           options.LoginPath = "/login";
+           options.LoginPath = "/Giris";
        });
             #endregion
         }

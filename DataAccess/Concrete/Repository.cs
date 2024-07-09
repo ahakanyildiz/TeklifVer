@@ -84,5 +84,12 @@ namespace DataAccess.Concrete
 
             return query;
         }
+
+
+        public void UpdateEntryState(T before, T after)
+        {
+            _context.Entry(before).CurrentValues.SetValues(after);
+            _context.SaveChangesAsync();
+        }
     }
 }

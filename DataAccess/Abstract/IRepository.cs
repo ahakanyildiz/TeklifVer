@@ -8,6 +8,7 @@ namespace DataAccess.Abstract
         public void Create(T t);
         public void Delete(T t);
         public void Update(T t);
+        public void UpdateEntryState(T before, T after);
         public T GetById(int id);
         public T GetByFilter(Expression<Func<T, bool>> filter);
         public List<T> GetByFilterList(Expression<Func<T, bool>> filter);

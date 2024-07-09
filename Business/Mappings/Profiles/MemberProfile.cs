@@ -11,6 +11,8 @@ namespace TeklifVer.Business.Mappings.Profiles
             CreateMap<Member, MemberListDto>().ReverseMap();
             CreateMap<Member, MemberLoginDto>().ReverseMap();
             CreateMap<Member, MemberSignUpDto>().ReverseMap();
+            CreateMap<Member, MemberUpdateDto>().ReverseMap();
+            CreateMap<MemberListDto, MemberUpdateDto>().ReverseMap();
         }
     }
 }

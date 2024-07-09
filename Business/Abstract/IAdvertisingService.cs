@@ -13,5 +13,6 @@ namespace TeklifVer.Business.Abstract
         public IResult<AdvertisingListDto> GetById(int id);
         public IResult<IQueryable<ModelListDto>> GetModelsByBrandId(int id);
         public IResult IncrementViewsCount(int id);
+        public IResult<List<AdvertisingListDto>> GetAllByMemberId(int id);
     }
 }

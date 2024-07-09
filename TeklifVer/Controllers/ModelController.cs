@@ -74,7 +74,7 @@ namespace TeklifVer.UI.Controllers
             ModelUpdateModel model = new ModelUpdateModel();
             model.BrandsList = _brandService.GetAll().Data;
             var carModelResult = _modelService.GetById(id);
-            if(carModelResult.IsSuccess)
+            if (carModelResult.IsSuccess)
             {
                 model.Definition = carModelResult.Data.Definition;
                 model.BrandId = carModelResult.Data.BrandId;

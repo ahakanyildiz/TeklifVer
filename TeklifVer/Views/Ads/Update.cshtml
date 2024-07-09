@@ -2,25 +2,25 @@
 @model AdvertisingUpdateViewModel
 
 
-<script src="~/js/Car/CarUpdate.js"></script>
+<script src="~/js/Advertising/CarUpdate.js"></script>
 
 <form method="post" asp-action="Update" asp-controller="Ads">
-    <input type="hidden" asp-for="@Model.Car.MemberId" />
+    <input type="hidden" asp-for="@Model.Advertising.MemberId" />
     <div class="form-group">
         <label>Başlık:</label>
-        <input asp-for="@Model.Car.Definition" id="Definition" type="text" value="@Model.Car.Definition" />
+        <input asp-for="@Model.Advertising.Definition" id="Definition" type="text" value="@Model.Advertising.Definition" />
     </div>
     <div class="form-group">
         <label>Açıklama:</label>
-        <input asp-for="@Model.Car.Description" type="text"  />
+        <input asp-for="@Model.Advertising.Description" type="text"  />
     </div>
-    <input type="hidden" asp-for="@Model.Car.Id" />
+    <input type="hidden" asp-for="@Model.Advertising.Id" />
     <div class="form-group">
         <label>Marka Seçiniz:</label>
         <select name="BrandId" id="carBrandSelect">
             @foreach (var brand in Model.Brands)
             {
-                @if (brand.Id == Model.Car.Model.BrandId)
+                @if (brand.Id == Model.Advertising.Model.BrandId)
                 {
                     <option value="@brand.Id" selected="true">@brand.Definition</option>
                 }
@@ -34,10 +34,10 @@
 
     <div class="form-group">
         <label>Model Seçiniz:</label>
-        <select asp-for="@Model.Car.ModelId" id="carModelSelect">
+        <select asp-for="@Model.Advertising.ModelId" id="carModelSelect">
             @foreach (var carModel in Model.Models)
             {
-                @if (carModel.Id == Model.Car.ModelId)
+                @if (carModel.Id == Model.Advertising.ModelId)
                 {
                     <option value="@carModel.Id" selected>@carModel.Definition</option>
                 }
@@ -51,11 +51,11 @@
 
     <div class="form-group">
         <label>Sene:</label>
-        <input asp-for="@Model.Car.Year" type="number" id="Year" min="1900" max="@DateTime.Now.Year" step="1" placeholder="YYYY" value="@Model.Car.Year">
+        <input asp-for="@Model.Advertising.Year" type="number" id="Year" min="1900" max="@DateTime.Now.Year" step="1" placeholder="YYYY" value="@Model.Advertising.Year">
     </div>
     <div class="form-group">
         <label>Fiyat:</label>
-        <input asp-for="@Model.Car.Price" type="number" asp-for="@Model.Car.Price">
+        <input asp-for="@Model.Advertising.Price" type="number" asp-for="@Model.Advertising.Price">
     </div>
 
     <button class="button success" id="btnUpdate" type="submit">Güncelle</button>

@@ -73,6 +73,7 @@ namespace TeklifVer.Business.Concrete
             try
             {
                 var data = _mapper.Map<List<AdvertisingListDto>>(_carRepository.GetAll("Model,Model.Brand").ToList());
+
                 return new Result<List<AdvertisingListDto>>(true, data);
             }
             catch (Exception ex)
@@ -99,8 +100,9 @@ namespace TeklifVer.Business.Concrete
         {
             try
             {
-                var data = _mapper.Map<AdvertisingListDto>(_carRepository.GetById(id, "Model,Model.Brand"));
-                return new Result<AdvertisingListDto>(true, data);
+                var data = _mapper.Map<AdvertisingListDto>(_carRepository.GetById(id, "Model,Member,Model.Brand"));
+                return data == null ? new Result<AdvertisingListDto>(false, "İlan bulunamadı")
+                    : new Result<AdvertisingListDto>(true, data);
 
             }
             catch (Exception ex)
@@ -124,5 +126,23 @@ namespace TeklifVer.Business.Concrete
             }
         }
 
+        public IResult<List<AdvertisingListDto>> GetAllByMemberId(int id)
+        {
+            try
+            {
+                var allAds = _carRepository.GetAll("Member,Model,Model.Brand").ToList();
+                var adsListByMembr = allAds.Where(x => x.MemberId == id).ToList();
+                if (adsListByMembr == null)
+                {
+                    return new Result<List<AdvertisingListDto>>(false, "Hiç ilanınız yok");
+                }
+                return new Result<List<AdvertisingListDto>>(true, _mapper.Map<List<AdvertisingListDto>>(adsListByMembr));
+
+            }
+            catch (Exception ex)
+            {
+                return new Result<List<AdvertisingListDto>>(false, ex.Message);
+            }
+        }
     }
 }

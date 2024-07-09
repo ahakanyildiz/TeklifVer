@@ -6,7 +6,7 @@ namespace TeklifVer.UI.Models.Car
 {
     public class AdvertisingUpdateViewModel
     {
-        public AdvertisingListDto Car { get; set; }
+        public AdvertisingListDto Advertising { get; set; }
         public List<BrandListDto> Brands { get; set; }
         public List<ModelListDto> Models { get; set; }
     }

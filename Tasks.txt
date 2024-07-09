@@ -1,11 +1,14 @@
 ->Profilim sekmesi yapılacak.
 	->İlanlarım
-	->Teklif Yaptığım İlanlar
+		->İlanlarıma yapılan teklifler(Onayla,Mesajlaş)
+	->Teklif Yaptığım İlanlar *//**/*//*
 	->Bilgilerimi Güncelle
 	->Çıkış
 
 
-->İlanlar sayfasında filtreleme yapılacak.
+->İlanlar sayfasında filtreleme yapılacak.*//**//*/*
 
 
- ->	("Mesajlaşma olursa tadından yenmez") <- //WebSocket 
+->	("Mesajlaşma olursa tadından yenmez") <- //WebSocket 
+
+

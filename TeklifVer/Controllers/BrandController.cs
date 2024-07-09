@@ -7,7 +7,7 @@ using TeklifVer.Dto.CarBrand;
 
 namespace TeklifVer.Controllers
 {
-   
+
     [Route("Marka/{action}/{id?}")]
     public class BrandController : Controller
     {
@@ -40,6 +40,8 @@ namespace TeklifVer.Controllers
                 }
             }
         }
+
+
         [Authorize(Roles = "admin")]
         public IActionResult Index()
         {

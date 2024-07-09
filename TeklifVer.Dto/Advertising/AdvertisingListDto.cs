@@ -3,7 +3,7 @@ using TeklifVer.Dto.Member;
 
 namespace TeklifVer.Dto.Car
 {
-    public class AdvertisingListDto
+    public class AdvertisingListDto : IDto
     {
         public int Id { get; set; }
         public string Definition { get; set; }

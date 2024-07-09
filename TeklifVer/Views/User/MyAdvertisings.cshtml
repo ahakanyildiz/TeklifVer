@@ -1,0 +1,33 @@
+﻿@using TeklifVer.Dto.Car;
+@model List<AdvertisingListDto>
+@{
+    ViewData["Title"] = "İlanlarım";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+    ViewData["CustomCss"] = "/User/MyAdvertisings.css";
+}
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>İlan Başlık</th>
+            <th>İlan Fiyat</th>
+            <th>İlan Görüntülenme Sayısı</th>
+            <th>Güncelle</th>
+            <th>İlanı Kaldır</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Definition</td>
+                <td>@String.Concat(@item.Price,"₺")</td>
+                <td>@item.ViewsCount</td>
+                <td><a href="/Profil/Ilanlarim/Guncelle/@item.Id">Güncelle</a></td>
+                <td><a style="background-color:#df4e4e" href="/Profil/Ilanlarim/Sil/@item.Id">Kaldır</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

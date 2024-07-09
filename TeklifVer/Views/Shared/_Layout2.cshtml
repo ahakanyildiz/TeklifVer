@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,7 +10,7 @@
         <link rel="stylesheet" href="~/css/@ViewBag.CustomCss" />
 
     }
-        <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -39,14 +40,20 @@
             <li class="navbar-item"><a asp-action="Index" asp-controller="Main">Anasayfa</a></li>
             <li class="navbar-item"><a asp-action="Index" asp-controller="Advertising">İlanlar</a></li>
 
-              @if (!User.Identity.IsAuthenticated)
+            @if (!User.Identity.IsAuthenticated)
             {
                 <li class="navbar-item"><a asp-action="GirisYap" asp-controller="Login">Giriş Yap</a></li>
             }
             @if (User.Identity.IsAuthenticated)
             {
-                <li class="navbar-item"><a asp-action="CreateAdvertising" asp-controller="Advertising">İlan Oluştur</a></li>
-                <li class="navbar-item"><a asp-action="SignOut" asp-controller="Login">Çıkış Yap</a></li>
+                <li class="navbar-item profile" style="cursor:pointer;">
+                    Profilim
+                    <ul class="dropdown-content">
+                        <li class="dropdown-item"><a asp-action="Index" asp-controller="User">Profil</a></li>
+                        <li class="dropdown-item"><a asp-action="MyAdvertisings" asp-controller="User" asp-route-id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">İlanlarım</a></li>
+                        <li class="dropdown-item"><a asp-action="SignOut" asp-controller="Login">Çıkış Yap</a></li>
+                    </ul>
+                </li>
             }
         </ul>
         <div class="hamburger-menu">

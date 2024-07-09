@@ -2,7 +2,6 @@
 using DataAccess.Abstract;
 using Dto.CarModel;
 using Entities;
-using Microsoft.EntityFrameworkCore;
 using TeklifVer.Business.Abstract;
 using TeklifVer.Common.ResultPattern;
 using TeklifVer.Dto.CarModel;

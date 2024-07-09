@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TeklifVer.Common.Enums;
-using TeklifVer.Common.Helpers;
 using TeklifVer.Dto.Member;
 
 namespace TeklifVer.Controllers
@@ -49,6 +48,7 @@ namespace TeklifVer.Controllers
                     new Claim(ClaimTypes.Role, result.Data.RoleId == (int)RoleType.Admin ? "admin" : "member")
                 };
 
+
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties();
@@ -86,10 +86,11 @@ namespace TeklifVer.Controllers
         {
             var result = _memberService.Create(memberSignUpDto);
             TempData["isOkey"] = result.IsSuccess ? "Okey" : "No";
-            TempData["message"] = result.IsSuccess ? "Kayıt başarıyla yapıldı" : result.ErrorMessage;
+            TempData["message"] = result.IsSuccess ? "Üyelik başarıyla oluşturuldu" : result.ErrorMessage;
             return result.IsSuccess ? RedirectToAction("GirisYap", "Login") : View(memberSignUpDto);
         }
 
+        [Route("Giris")]
         [HttpGet]
         public async Task<IActionResult> GirisYap()
         {
@@ -97,6 +98,7 @@ namespace TeklifVer.Controllers
             return View(new MemberLoginDto());
         }
 
+        [Route("Giris")]
         [HttpPost]
         public async Task<IActionResult> GirisYap(MemberLoginDto memberLoginDto)
         {

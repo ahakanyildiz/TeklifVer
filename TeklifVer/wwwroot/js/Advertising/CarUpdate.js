@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     function getModels(id) {
         $.ajax({
-            url: `/carmodel/GetListByBrandId/${id}`,
+            url: `/model/GetListByBrandId/${id}`,
             method: 'GET',
             dataType: 'json',
             success: function (response) {

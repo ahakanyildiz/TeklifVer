@@ -22,6 +22,7 @@ namespace TeklifVer.UI.Controllers
         }
 
 
+        [Route("Panel/İlanlar")]
         public IActionResult Index()
         {
             var result = _advertisingService.GetAll();
@@ -30,15 +31,16 @@ namespace TeklifVer.UI.Controllers
         }
 
         [HttpPost]
+        [Route("Panel/İlanlar/Olustur")]
         public IActionResult Create(AdvertisingCreateDto carCreateDto)
         {
-            carCreateDto.MemberId =Convert.ToInt32((User.FindFirst(ClaimTypes.NameIdentifier)).Value);
+            carCreateDto.MemberId = Convert.ToInt32((User.FindFirst(ClaimTypes.NameIdentifier)).Value);
             var result = _advertisingService.Create(carCreateDto);
             TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
             return result.IsSuccess ? RedirectToAction("Index") : View(carCreateDto);
         }
 
-
+        [Route("Panel/İlanlar/Sil/{id}")]
         public IActionResult Remove(int id)
         {
             var result = _advertisingService.Delete(id);
@@ -48,6 +50,7 @@ namespace TeklifVer.UI.Controllers
 
 
         [HttpGet]
+        [Route("Panel/İlanlar/Guncelle/{id}")]
         public IActionResult Update(int id)
         {
             var car = _advertisingService.GetById(id);
@@ -56,7 +59,7 @@ namespace TeklifVer.UI.Controllers
 
             var viewModel = new AdvertisingUpdateViewModel
             {
-                Car = car.Data,
+                Advertising = car.Data,
                 Brands = brands.Data,
                 Models = models.Data
             };
@@ -65,16 +68,17 @@ namespace TeklifVer.UI.Controllers
         }
 
         [HttpPost]
+        [Route("Panel/İlanlar/Guncelle/{id}")]
         public IActionResult Update(AdvertisingUpdateViewModel model)
         {
             AdvertisingUpdateDto dto = new();
-            dto.Id = model.Car.Id;
-            dto.Year = model.Car.Year;
-            dto.Definition = model.Car.Definition;
-            dto.ModelId = model.Car.ModelId;
-            dto.Price = model.Car.Price;
-            dto.Description= model.Car.Description;
-            dto.MemberId=model.Car.MemberId;
+            dto.Id = model.Advertising.Id;
+            dto.Year = model.Advertising.Year;
+            dto.Definition = model.Advertising.Definition;
+            dto.ModelId = model.Advertising.ModelId;
+            dto.Price = model.Advertising.Price;
+            dto.Description = model.Advertising.Description;
+            dto.MemberId = model.Advertising.MemberId;
             var result = _advertisingService.Update(dto);
             TempData["isSuccess"] = result.IsSuccess ? "İşlem Başarılı" : result.ErrorMessage;
             return result.IsSuccess ? RedirectToAction("Index") : View(model);
